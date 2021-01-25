@@ -6,19 +6,20 @@ on:
   pull_request:
     branches: [master]
 
-  jobs:
-    build:
-      runs-on: ubuntu-latest
+jobs:
+  build:
 
-      steps:
-      - uses: actions/checkout@v1
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 5.0.x
-      - name: Restore dependencies
-        run: dotnet restore ./-source
-      - name: Build
-        run: dotnet build --no-restore ./source
-      - name: Test
-        run: dotnet test --no-build --verbosity normal ./source
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore ./source
+    - name: Build
+      run: dotnet build --no-restore ./source
+    - name: Test
+      run: dotnet test --no-build --verbosity normal ./source
