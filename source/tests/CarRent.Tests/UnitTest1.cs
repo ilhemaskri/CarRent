@@ -1,3 +1,5 @@
+using CarRent.CustomerManagement.Database;
+
 namespace CarRent.Tests
 {
     using System;
@@ -6,9 +8,20 @@ namespace CarRent.Tests
     public class UnitTest1
     {
         [Fact]
-        public void Test1()
+        public void TestISDBConnectionOpen()
         {
-            Assert.True(false);
+            DBConnect connect = new DBConnect();
+            connect.Initialize();
+            Assert.True(connect.OpenConnection());
+        }
+
+        [Fact]
+        public void TestISDBConnectionClosed()
+        {
+            DBConnect connect = new DBConnect();
+            connect.Initialize();
+            connect.OpenConnection();
+            Assert.True(connect.CloseConnection());
         }
     }
 }
