@@ -10,5 +10,9 @@ namespace CarRent.CustomerManagement.Application
         {
             _customerRepository = customerRepository;
         }
+
+        public ICustomerRepository getRepository() {
+            return _customerRepository;
+        }
     }
 }

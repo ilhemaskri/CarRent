@@ -17,22 +17,41 @@
 
         public Customer FindById(int id)
         {
-            throw new NotImplementedException();
+            foreach (var customer in _data) {
+                if (customer.Id.Equals(id)) {
+                    return customer;
+                }
+            }
+            return null;
         }
 
         public IEnumerable<Customer> FindByName(string name)
         {
-            throw new NotImplementedException();
+            var customers = new List<Customer>();
+            foreach (var customer in _data)
+            {
+                if (customer.Name.Equals(name))
+                {
+                    customers.Add(customer);
+                }
+            }
+            return customers;
         }
 
         public void Remove(Customer customer)
         {
-            throw new NotImplementedException();
+            _data.Remove(customer);
         }
 
         public void Remove(int id)
         {
-            throw new NotImplementedException();
+            foreach (var customer in _data)
+            {
+                if (customer.Id.Equals(id))
+                {
+                    _data.Remove(customer);
+                }
+            }
         }
     }
 }
