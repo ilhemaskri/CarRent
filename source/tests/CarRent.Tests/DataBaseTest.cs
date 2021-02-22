@@ -9,7 +9,7 @@ namespace CarRent.Tests
 
     public class DataBaseTest
     {
-      /*  [Fact]
+        [Fact]
         public void TestISDBConnectionOpen()
         {
             var connect = new DBConnect();
@@ -490,7 +490,7 @@ namespace CarRent.Tests
             Assert.Contains("3", reservation.Select(data)[3]);
             data.days = 1;
             reservation.Update(data);
-        }*/
+        }
     }
 }
 
