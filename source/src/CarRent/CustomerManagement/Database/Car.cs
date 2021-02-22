@@ -81,7 +81,19 @@ namespace CarRent.CustomerManagement.Database
         public List<string>[] Select(Object o)
         {
             Domain.Car k = (Domain.Car)o;
-            string query = "SELECT * FROM car WHERE id=" + k.Id;
+            string query;
+            if (k.Id == 0 && !k.Marke.Equals(""))
+            {
+                query = "SELECT * FROM car WHERE marke=" + k.Marke;
+            }
+            else if (k.Id != 0)
+            {
+                query = "SELECT * FROM car WHERE id=" + k.Id;
+            }
+            else
+            {
+                query = "SELECT * FROM car";
+            }
 
             //Create a list to store the result
             List<string>[] list = new List<string>[4];

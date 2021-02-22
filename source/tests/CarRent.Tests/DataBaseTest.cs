@@ -36,15 +36,7 @@ namespace CarRent.Tests
             data.Id = 1;
             data.Tagesgebühr = 250;
             klasse.Select(data);
-
-            var list = new List<string>[3];
-            list[0] = new List<string>();
-            list[1] = new List<string>();
-            list[2] = new List<string>();
-            list[0].Add("1");
-            list[1].Add("Mittelklasse");
-            list[2].Add("20.50");
-            Assert.Equal(klasse.Select(data).Length, list.Length);
+            Assert.Equal(3, klasse.Select(data).Length);
         }
 
         [Fact]
@@ -66,12 +58,12 @@ namespace CarRent.Tests
             var connect = new DBConnect();
             var klasse = new CustomerManagement.Database.Klasse(connect);
             var data = new CustomerManagement.Domain.Klasse();
-            data.Bezeichnung = "Luxusklasse";
-            data.Id = 2;
+            data.Bezeichnung = "Testklasse";
+            data.Id = 4;
             data.Tagesgebühr = 400;
             klasse.Insert(data);
             klasse.Select(data);
-            Assert.Contains("Luxusklasse", klasse.Select(data)[1]);
+            Assert.Contains("Testklasse", klasse.Select(data)[1]);
         }
 
         [Fact]
@@ -80,10 +72,10 @@ namespace CarRent.Tests
             var connect = new DBConnect();
             var klasse = new CustomerManagement.Database.Klasse(connect);
             var data = new CustomerManagement.Domain.Klasse();
-            data.Bezeichnung = "Luxusklasse";
-            data.Id = 2;
+            data.Bezeichnung = "Testklasse";
+            data.Id = 4;
             data.Tagesgebühr = 400;
-            if (!klasse.Select(data)[1].Contains("Luxusklasse")) {
+            if (!klasse.Select(data)[1].Contains("Testklasse")) {
               klasse.Insert(data);
             }
             klasse.Delete(data);

@@ -8,11 +8,18 @@
 
     public class InMemoryCustomerRepository : ICustomerRepository
     {
-        private readonly List<Customer> _data = new List<Customer>();
+        private readonly List<Customer> _data;
+        private CustomerRepository repo;
+
+        public InMemoryCustomerRepository() {
+            repo = new CustomerRepository();
+            _data = repo.getAllCustomers().ToList();
+        }
 
         public void Add(Customer customer)
         {
             _data.Add(customer);
+            repo.Add(customer);
         }
 
         public Customer FindById(int id)
@@ -41,6 +48,7 @@
         public void Remove(Customer customer)
         {
             _data.Remove(customer);
+            repo.Remove(customer);
         }
 
         public void Remove(int id)
@@ -52,6 +60,7 @@
                     _data.Remove(customer);
                 }
             }
+            repo.Remove(id);
         }
     }
 }
