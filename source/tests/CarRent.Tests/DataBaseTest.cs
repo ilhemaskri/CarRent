@@ -34,7 +34,7 @@ namespace CarRent.Tests
             var data = new CustomerManagement.Domain.Klasse();
             data.Bezeichnung="Mittelklasse";
             data.Id = 1;
-            data.Tagesgebühr = 250;
+            data.Tagesgebuhr = 250;
             klasse.Select(data);
             Assert.Equal(3, klasse.Select(data).Length);
         }
@@ -47,7 +47,7 @@ namespace CarRent.Tests
             var data = new CustomerManagement.Domain.Klasse();
             data.Bezeichnung = "Mittelklasse";
             data.Id = 1;
-            data.Tagesgebühr = 250;
+            data.Tagesgebuhr = 250;
             klasse.Select(data);
             Assert.Contains("Mittelklasse", klasse.Select(data)[1]);
         }
@@ -60,7 +60,7 @@ namespace CarRent.Tests
             var data = new CustomerManagement.Domain.Klasse();
             data.Bezeichnung = "Testklasse";
             data.Id = 4;
-            data.Tagesgebühr = 400;
+            data.Tagesgebuhr = 400;
             klasse.Insert(data);
             klasse.Select(data);
             Assert.Contains("Testklasse", klasse.Select(data)[1]);
@@ -74,7 +74,7 @@ namespace CarRent.Tests
             var data = new CustomerManagement.Domain.Klasse();
             data.Bezeichnung = "Testklasse";
             data.Id = 4;
-            data.Tagesgebühr = 400;
+            data.Tagesgebuhr = 400;
             if (!klasse.Select(data)[1].Contains("Testklasse")) {
               klasse.Insert(data);
             }
@@ -91,11 +91,11 @@ namespace CarRent.Tests
             var data = new CustomerManagement.Domain.Klasse();
             data.Bezeichnung = "Mittelklasse";
             data.Id = 1;
-            data.Tagesgebühr = 270;
+            data.Tagesgebuhr = 270;
             klasse.Update(data);
             klasse.Select(data);
             Assert.Contains("270", klasse.Select(data)[2]);
-            data.Tagesgebühr = 250;
+            data.Tagesgebuhr = 250;
             klasse.Update(data);
         }
         [Fact]

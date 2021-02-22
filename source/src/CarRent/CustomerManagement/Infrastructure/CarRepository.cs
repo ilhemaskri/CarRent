@@ -38,7 +38,7 @@ namespace CarRent.CustomerManagement.Infrastructure
             var listCla = tableCla.Select(car.Klasse.Id);
             car.Klasse.Id = Convert.ToInt32(listCla[1].ElementAt(0));
             car.Klasse.Bezeichnung = listCla[2].ElementAt(0);
-            car.Klasse.Tagesgebühr = Convert.ToInt32(listCla[3].ElementAt(0));
+            car.Klasse.Tagesgebuhr = Convert.ToInt32(listCla[3].ElementAt(0));
             return car;
         }
 
@@ -60,7 +60,7 @@ namespace CarRent.CustomerManagement.Infrastructure
                 var listCla = tableCla.Select(car.Klasse.Id);
                 car.Klasse.Id = Convert.ToInt32(listCla[1].ElementAt(0));
                 car.Klasse.Bezeichnung = listCla[2].ElementAt(0);
-                car.Klasse.Tagesgebühr = Convert.ToInt32(listCla[3].ElementAt(0));
+                car.Klasse.Tagesgebuhr = Convert.ToInt32(listCla[3].ElementAt(0));
                 cars.Add(car);
                 if (counter < list[0].Count)
                 {

@@ -22,7 +22,7 @@ namespace CarRent.CustomerManagement.Database
         public void Insert(Object o)
         {
             Domain.Klasse k = (Domain.Klasse)o;
-            var query = String.Format("INSERT INTO klasse (ID, Klasse, Tagesgebühr) VALUES({0}, '{1}', {2})", k.Id, k.Bezeichnung, k.Tagesgebühr);
+            var query = String.Format("INSERT INTO klasse (ID, Klasse, Tagesgebühr) VALUES({0}, '{1}', {2})", k.Id, k.Bezeichnung, k.Tagesgebuhr);
 
             //open connection
             if (dbConnect.OpenConnection() == true)
@@ -42,7 +42,7 @@ namespace CarRent.CustomerManagement.Database
         public void Update(Object o)
         {
             Domain.Klasse k = (Domain.Klasse)o;
-            var query = String.Format("UPDATE Klasse SET id={0}, klasse='{1}', tagesgebühr={2} WHERE id={0}", k.Id, k.Bezeichnung, k.Tagesgebühr);
+            var query = String.Format("UPDATE Klasse SET id={0}, klasse='{1}', tagesgebühr={2} WHERE id={0}", k.Id, k.Bezeichnung, k.Tagesgebuhr);
 
             //Open connection
             if (dbConnect.OpenConnection() == true)

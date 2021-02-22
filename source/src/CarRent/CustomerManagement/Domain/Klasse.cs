@@ -12,6 +12,6 @@ namespace CarRent.CustomerManagement.Domain
     {
         public int Id { get; set; }
         public string Bezeichnung { get; set; }
-        public int Tagesgebühr { get; set; }
+        public int Tagesgebuhr { get; set; }
     }
 }
