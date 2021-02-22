@@ -45,8 +45,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
-        run: | 
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"cmenzi_carrent-2021" /o:"cmenzi" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+        run: |
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"askri_carrent-2021" /o:"ilhemaskri" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet restore ./source
           dotnet build --no-restore ./source
           dotnet test --no-build --verbosity normal ./source
