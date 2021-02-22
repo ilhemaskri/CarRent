@@ -20,100 +20,106 @@ namespace CarRent.CustomerManagement.Database
         this.dbConnect = dbConnect;
         connection = dbConnect.Initialize();
     }
-    public void Insert(Object o)
-    {
-        string query = "INSERT INTO tableinfo (name, age) VALUES('John Smith', '33')";
-
-        //open connection
-        if (dbConnect.OpenConnection() == true)
+        public void Insert(Object o)
         {
-            //create command and assign the query and connection from the constructor
-            MySqlCommand cmd = new MySqlCommand(query, connection);
+            Domain.Car k = (Domain.Car)o;
+            var query = String.Format("INSERT INTO car (id, marke, typ, klassenid) VALUES({0}, '{1}', '{2}', {3})", k.Id, k.Marke, k.Typ, k.Klasse.Id);
 
-            //Execute command
-            cmd.ExecuteNonQuery();
-
-            //close connection
-            dbConnect.CloseConnection();
-        }
-    }
-
-    //Update statement
-    public void Update(Object o)
-    {
-        string query = "UPDATE tableinfo SET name='Joe', age='22' WHERE name='John Smith'";
-
-        //Open connection
-        if (dbConnect.OpenConnection() == true)
-        {
-            //create mysql command
-            MySqlCommand cmd = new MySqlCommand();
-            //Assign the query using CommandText
-            cmd.CommandText = query;
-            //Assign the connection using Connection
-            cmd.Connection = connection;
-
-            //Execute query
-            cmd.ExecuteNonQuery();
-
-            //close connection
-            dbConnect.CloseConnection();
-        }
-    }
-
-    //Delete statement
-    public void Delete(Object o)
-    {
-        string query = "DELETE FROM tableinfo WHERE name='John Smith'";
-
-        if (dbConnect.OpenConnection() == true)
-        {
-            MySqlCommand cmd = new MySqlCommand(query, connection);
-            cmd.ExecuteNonQuery();
-            dbConnect.CloseConnection();
-        }
-    }
-
-    //Select statement
-    public List<string>[] Select(Object o)
-    {
-        string query = "SELECT * FROM tableinfo";
-
-        //Create a list to store the result
-        List<string>[] list = new List<string>[3];
-        list[0] = new List<string>();
-        list[1] = new List<string>();
-        list[2] = new List<string>();
-
-        //Open connection
-        if (dbConnect.OpenConnection() == true)
-        {
-            //Create Command
-            MySqlCommand cmd = new MySqlCommand(query, connection);
-            //Create a data reader and Execute the command
-            MySqlDataReader dataReader = cmd.ExecuteReader();
-
-            //Read the data and store them in the list
-            while (dataReader.Read())
+            //open connection
+            if (dbConnect.OpenConnection() == true)
             {
-                list[0].Add(dataReader["id"] + "");
-                list[1].Add(dataReader["name"] + "");
-                list[2].Add(dataReader["age"] + "");
+                //create command and assign the query and connection from the constructor
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+
+                //Execute command
+                cmd.ExecuteNonQuery();
+
+                //close connection
+                dbConnect.CloseConnection();
             }
-
-            //close Data Reader
-            dataReader.Close();
-
-            //close Connection
-            dbConnect.CloseConnection();
-
-            //return list to be displayed
-            return list;
         }
-        else
+
+        //Update statement
+        public void Update(Object o)
         {
-            return list;
+            Domain.Car k = (Domain.Car)o;
+            var query = String.Format("UPDATE car SET id={0}, marke='{1}', typ='{2}', klassenid={3} WHERE id={0}", k.Id, k.Marke, k.Typ, k.Klasse.Id);
+
+            //Open connection
+            if (dbConnect.OpenConnection() == true)
+            {
+                //create mysql command
+                MySqlCommand cmd = new MySqlCommand();
+                //Assign the query using CommandText
+                cmd.CommandText = query;
+                //Assign the connection using Connection
+                cmd.Connection = connection;
+
+                //Execute query
+                cmd.ExecuteNonQuery();
+
+                //close connection
+                dbConnect.CloseConnection();
+            }
+        }
+
+        //Delete statement
+        public void Delete(Object o)
+        {
+            Domain.Car k = (Domain.Car)o;
+            string query = "DELETE FROM car WHERE id=" + k.Id;
+
+            if (dbConnect.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.ExecuteNonQuery();
+                dbConnect.CloseConnection();
+            }
+        }
+
+        //Select statement
+        public List<string>[] Select(Object o)
+        {
+            Domain.Car k = (Domain.Car)o;
+            string query = "SELECT * FROM car WHERE id=" + k.Id;
+
+            //Create a list to store the result
+            List<string>[] list = new List<string>[4];
+            list[0] = new List<string>();
+            list[1] = new List<string>();
+            list[2] = new List<string>();
+            list[3] = new List<string>();
+
+            //Open connection
+            if (dbConnect.OpenConnection() == true)
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                //Create a data reader and Execute the command
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    list[0].Add(dataReader["id"] + "");
+                    list[1].Add(dataReader["marke"] + "");
+                    list[2].Add(dataReader["typ"] + "");
+                    list[3].Add(dataReader["klassenid"] + "");
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                dbConnect.CloseConnection();
+
+                //return list to be displayed
+                return list;
+            }
+            else
+            {
+                return list;
+            }
         }
     }
-}
 }

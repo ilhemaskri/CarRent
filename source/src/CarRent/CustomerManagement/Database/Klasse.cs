@@ -22,7 +22,7 @@ namespace CarRent.CustomerManagement.Database
         public void Insert(Object o)
         {
             Domain.Klasse k = (Domain.Klasse)o;
-            string query = "INSERT INTO Klasse (id) VALUES('" + k.Bezeichnung +", '" + k.Tagesgebühr + "')";
+            var query = String.Format("INSERT INTO klasse (ID, Klasse, Tagesgebühr) VALUES({0}, '{1}', {2})", k.Id, k.Bezeichnung, k.Tagesgebühr);
 
             //open connection
             if (dbConnect.OpenConnection() == true)
@@ -42,7 +42,7 @@ namespace CarRent.CustomerManagement.Database
         public void Update(Object o)
         {
             Domain.Klasse k = (Domain.Klasse)o;
-            string query = "UPDATE Klasse SET id='" + k.Id + "', klasse='" + k.Bezeichnung + "', tagesgebühr='" + k.Tagesgebühr + "' WHERE id='" + k.Id + "'"; 
+            var query = String.Format("UPDATE Klasse SET id={0}, klasse='{1}', tagesgebühr={2} WHERE id={0}", k.Id, k.Bezeichnung, k.Tagesgebühr);
 
             //Open connection
             if (dbConnect.OpenConnection() == true)
@@ -66,7 +66,7 @@ namespace CarRent.CustomerManagement.Database
         public void Delete(Object o)
         {
             Domain.Klasse k = (Domain.Klasse)o;
-            string query = "DELETE FROM Klasse WHERE id='" + k.Id +"'";
+            string query = "DELETE FROM Klasse WHERE id=" + k.Id ;
 
             if (dbConnect.OpenConnection() == true)
             {
@@ -80,7 +80,7 @@ namespace CarRent.CustomerManagement.Database
         public List<string>[] Select(Object o)
         {
             Domain.Klasse k = (Domain.Klasse)o;
-            string query = "SELECT * FROM Klasse WHERE id='" + k.Id + "'";
+            string query = "SELECT * FROM Klasse WHERE id=" + k.Id;
 
             //Create a list to store the result
             List<string>[] list = new List<string>[3];

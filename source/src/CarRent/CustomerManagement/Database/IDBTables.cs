@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CarRent.CustomerManagement.Database
 {
-    interface IDBTables
+    public interface IDBTables
     {
 
         void Insert(Object o);

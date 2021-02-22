@@ -14,6 +14,7 @@ namespace CarRent.CustomerManagement.Domain
         public string Hausnummer { get; set; }
         public string Plz { get; set; }
         public string Ort { get; set; }
+        public string Land { get; set; }
         public int Id { get; set; }
     }
 }

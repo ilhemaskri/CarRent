@@ -10,20 +10,20 @@ using CarRent.CustomerManagement.Domain;
 
 namespace CarRent.CustomerManagement.Database
 {
-    public class Adress : IDBTables
+    public class Address : IDBTables
     {
         private DBConnect dbConnect;
         private MySqlConnection connection;
 
-        public Adress(DBConnect dbConnect)
+        public Address(DBConnect dbConnect)
         {
             this.dbConnect = dbConnect;
             connection = dbConnect.Initialize();
         }
         public void Insert(Object o)
         {
-            Domain.Address a = (Domain.Address)o;
-            string query ="INSERT INTO address " +"(" + "name, age) VALUES('John Smith', '33')";
+            Domain.Address k = (Domain.Address)o;
+            var query = String.Format("INSERT INTO address (id, strasse, hausnummer, plz, ort, land) VALUES({0}, '{1}', '{2}', '{3}', '{4}', '{5}')", k.Id, k.Strasse, k.Hausnummer, k.Plz, k.Ort, k.Land);
 
             //open connection
             if (dbConnect.OpenConnection() == true)
@@ -42,8 +42,8 @@ namespace CarRent.CustomerManagement.Database
         //Update statement
         public void Update(Object o)
         {
-            Domain.Address a = (Domain.Address)o;
-            string query = "UPDATE tableinfo SET name='Joe', age='22' WHERE name='John Smith'";
+            Domain.Address k = (Domain.Address)o;
+            var query = String.Format("UPDATE address SET id={0}, strasse='{1}', hausnummer='{2}', plz='{3}', ort='{4}', land='{5}' WHERE id={0}", k.Id, k.Strasse, k.Hausnummer, k.Plz, k.Ort, k.Land);
 
             //Open connection
             if (dbConnect.OpenConnection() == true)
@@ -66,8 +66,8 @@ namespace CarRent.CustomerManagement.Database
         //Delete statement
         public void Delete(Object o)
         {
-            Domain.Address a = (Domain.Address)o;
-            string query = "DELETE FROM tableinfo WHERE name='John Smith'";
+            Domain.Address k = (Domain.Address)o;
+            string query = "DELETE FROM address WHERE id=" + k.Id;
 
             if (dbConnect.OpenConnection() == true)
             {
@@ -80,14 +80,17 @@ namespace CarRent.CustomerManagement.Database
         //Select statement
         public List<string>[] Select(Object o)
         {
-            Domain.Address a = (Domain.Address)o;
-            string query = "SELECT * FROM tableinfo";
+            Domain.Address k = (Domain.Address)o;
+            string query = "SELECT * FROM address WHERE id=" + k.Id;
 
             //Create a list to store the result
-            List<string>[] list = new List<string>[3];
+            List<string>[] list = new List<string>[6];
             list[0] = new List<string>();
             list[1] = new List<string>();
             list[2] = new List<string>();
+            list[3] = new List<string>();
+            list[4] = new List<string>();
+            list[5] = new List<string>();
 
             //Open connection
             if (dbConnect.OpenConnection() == true)
@@ -101,8 +104,11 @@ namespace CarRent.CustomerManagement.Database
                 while (dataReader.Read())
                 {
                     list[0].Add(dataReader["id"] + "");
-                    list[1].Add(dataReader["name"] + "");
-                    list[2].Add(dataReader["age"] + "");
+                    list[1].Add(dataReader["strasse"] + "");
+                    list[2].Add(dataReader["hausnummer"] + "");
+                    list[3].Add(dataReader["plz"] + "");
+                    list[4].Add(dataReader["ort"] + "");
+                    list[5].Add(dataReader["land"] + "");
                 }
 
                 //close Data Reader
@@ -121,3 +127,4 @@ namespace CarRent.CustomerManagement.Database
         }
     }
 }
+
