@@ -46,8 +46,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"askri_carrent-2021" /o:"ilhemaskri" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"ilhemaskri_CarRent" /o:"ilhemaskri" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"          
           dotnet restore ./source
           dotnet build --no-restore ./source
-          dotnet test --no-build --verbosity normal ./source
+          dotnet test --no-build --collect:"XPlat Code Coverage" --verbosity normal ./source
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
