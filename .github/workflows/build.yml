@@ -49,5 +49,5 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"ilhemaskri_CarRent" /o:"ilhemaskri" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"          
           dotnet restore ./source
           dotnet build --no-restore ./source
-          dotnet test --no-build --collect:"XPlat Code Coverage" --verbosity normal ./source
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+          dotnet test --no-build --collect:"XPlat Code Coverage" --verbosity normal ./source -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${​​{​​ secrets.SONAR_TOKEN }​​}​​"
