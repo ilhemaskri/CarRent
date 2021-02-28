@@ -5,14 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CarRent.CustomerManagement.Domain;
-using CarRent.CustomerManagement.Database;
+using DataBaseLibrary.Domain;
 
-namespace CarRent.CustomerManagement.Database
+namespace DataBaseLibrary.Database
 {
     public class TableFactory
     {
-        public static IDBTables getTable(Object o, DBConnect connect) {
+        public static IDBTables getTable(Object o) {
+            var connect = new DBConnect();
             switch (o.GetType().Name) {
                 case "Klasse":
                     return new Klasse(connect);

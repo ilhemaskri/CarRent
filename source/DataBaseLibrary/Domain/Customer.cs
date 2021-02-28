@@ -1,4 +1,4 @@
-﻿namespace CarRent.CustomerManagement.Domain
+﻿namespace DataBaseLibrary.Domain
 {
     using System;
     using System.Collections.Generic;

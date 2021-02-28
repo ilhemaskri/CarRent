@@ -6,12 +6,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CarRent.CustomerManagement.Domain
+namespace DataBaseLibrary.Domain
 {
-    public class Klasse
+    public interface IReservationRepository
     {
-        public int Id { get; set; }
-        public string Bezeichnung { get; set; }
-        public int Tagesgebuhr { get; set; }
+        Reservation FindById(int id);
+
+        void Add(Reservation reservation);
+
+        void Remove(Reservation reservation);
+
+        void Remove(int reservation);
     }
 }

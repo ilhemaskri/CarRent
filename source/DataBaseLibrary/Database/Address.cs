@@ -6,24 +6,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
-using CarRent.CustomerManagement.Domain;
+using DataBaseLibrary.Domain;
 
-namespace CarRent.CustomerManagement.Database
+namespace DataBaseLibrary.Database
 {
-    public class Customer : IDBTables
+    public class Address : IDBTables
     {
         private DBConnect dbConnect;
-    private MySqlConnection connection;
+        private MySqlConnection connection;
 
-    public Customer(DBConnect dbConnect)
-    {
-        this.dbConnect = dbConnect;
-        connection = dbConnect.Initialize();
-    }
+        public Address(DBConnect dbConnect)
+        {
+            this.dbConnect = dbConnect;
+            connection = dbConnect.Initialize();
+        }
         public void Insert(Object o)
         {
-            Domain.Customer k = (Domain.Customer)o;
-            var query = String.Format("INSERT INTO customer (id, vorname, name, adressenid) VALUES({0}, '{1}', '{2}', {3})", k.Id, k.Vorname, k.Name, k.Adresse.Id);
+            Domain.Address k = (Domain.Address)o;
+            var query = String.Format("INSERT INTO address (id, strasse, hausnummer, plz, ort, land) VALUES({0}, '{1}', '{2}', '{3}', '{4}', '{5}')", k.Id, k.Strasse, k.Hausnummer, k.Plz, k.Ort, k.Land);
 
             //open connection
             if (dbConnect.OpenConnection() == true)
@@ -42,8 +42,8 @@ namespace CarRent.CustomerManagement.Database
         //Update statement
         public void Update(Object o)
         {
-            Domain.Customer k = (Domain.Customer)o;
-            var query = String.Format("UPDATE customer SET id={0}, vorname='{1}', name='{2}', adressenid={3} WHERE id={0}", k.Id, k.Vorname, k.Name, k.Adresse.Id);
+            Domain.Address k = (Domain.Address)o;
+            var query = String.Format("UPDATE address SET id={0}, strasse='{1}', hausnummer='{2}', plz='{3}', ort='{4}', land='{5}' WHERE id={0}", k.Id, k.Strasse, k.Hausnummer, k.Plz, k.Ort, k.Land);
 
             //Open connection
             if (dbConnect.OpenConnection() == true)
@@ -66,8 +66,8 @@ namespace CarRent.CustomerManagement.Database
         //Delete statement
         public void Delete(Object o)
         {
-            Domain.Customer k = (Domain.Customer)o;
-            string query = "DELETE FROM customer WHERE id=" + k.Id;
+            Domain.Address k = (Domain.Address)o;
+            string query = "DELETE FROM address WHERE id=" + k.Id;
 
             if (dbConnect.OpenConnection() == true)
             {
@@ -80,26 +80,17 @@ namespace CarRent.CustomerManagement.Database
         //Select statement
         public List<string>[] Select(Object o)
         {
-            Domain.Customer k = (Domain.Customer)o;
-            string query;
-            if (k.Id == 0 && !k.Name.Equals(""))
-            {
-                query = "SELECT * FROM customer WHERE name=" + k.Name;
-            }
-            else if (k.Id != 0)
-            {
-                query = "SELECT * FROM customer WHERE id=" + k.Id;
-            }
-            else {
-                query = "SELECT * FROM customer";
-            }
+            Domain.Address k = (Domain.Address)o;
+            string query = "SELECT * FROM address WHERE id=" + k.Id;
 
             //Create a list to store the result
-            List<string>[] list = new List<string>[4];
+            List<string>[] list = new List<string>[6];
             list[0] = new List<string>();
             list[1] = new List<string>();
             list[2] = new List<string>();
             list[3] = new List<string>();
+            list[4] = new List<string>();
+            list[5] = new List<string>();
 
             //Open connection
             if (dbConnect.OpenConnection() == true)
@@ -113,9 +104,11 @@ namespace CarRent.CustomerManagement.Database
                 while (dataReader.Read())
                 {
                     list[0].Add(dataReader["id"] + "");
-                    list[1].Add(dataReader["vorname"] + "");
-                    list[2].Add(dataReader["name"] + "");
-                    list[3].Add(dataReader["adressenid"] + "");
+                    list[1].Add(dataReader["strasse"] + "");
+                    list[2].Add(dataReader["hausnummer"] + "");
+                    list[3].Add(dataReader["plz"] + "");
+                    list[4].Add(dataReader["ort"] + "");
+                    list[5].Add(dataReader["land"] + "");
                 }
 
                 //close Data Reader

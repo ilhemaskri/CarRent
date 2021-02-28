@@ -7,8 +7,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using DataBaseLibrary.Domain;
 
-namespace CarRent.CustomerManagement.Database
+namespace DataBaseLibrary.Database
 {
     public class DBConnect
     {

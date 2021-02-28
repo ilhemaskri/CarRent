@@ -6,24 +6,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
-using CarRent.CustomerManagement.Domain;
+using DataBaseLibrary.Domain;
 
-namespace CarRent.CustomerManagement.Database
+namespace DataBaseLibrary.Database
 {
-    public class Car : IDBTables
+    public class Reservation : IDBTables
     {
         private DBConnect dbConnect;
     private MySqlConnection connection;
 
-    public Car(DBConnect dbConnect)
+    public Reservation(DBConnect dbConnect)
     {
         this.dbConnect = dbConnect;
         connection = dbConnect.Initialize();
     }
         public void Insert(Object o)
         {
-            Domain.Car k = (Domain.Car)o;
-            var query = String.Format("INSERT INTO car (id, marke, typ, klassenid) VALUES({0}, '{1}', '{2}', {3})", k.Id, k.Marke, k.Typ, k.Klasse.Id);
+            Domain.Reservation k = (Domain.Reservation)o;
+            String query;
+            if (k.Id.Equals(0))
+            {
+                query = String.Format("INSERT INTO reservation (kundenid, autoid, tage) VALUES({0}, {1}, {2})", k.customer.Id, k.car.Id, k.days);
+            }
+            else
+            {
+                query = String.Format("INSERT INTO reservation (id, kundenid, autoid, tage) VALUES({0}, {1}, {2}, {3})", k.Id, k.customer.Id, k.car.Id, k.days);
+            }
 
             //open connection
             if (dbConnect.OpenConnection() == true)
@@ -42,8 +50,8 @@ namespace CarRent.CustomerManagement.Database
         //Update statement
         public void Update(Object o)
         {
-            Domain.Car k = (Domain.Car)o;
-            var query = String.Format("UPDATE car SET id={0}, marke='{1}', typ='{2}', klassenid={3} WHERE id={0}", k.Id, k.Marke, k.Typ, k.Klasse.Id);
+            Domain.Reservation k = (Domain.Reservation)o;
+            var query = String.Format("UPDATE reservation SET id={0}, kundenid={1}, autoid={2}, tage={3} WHERE id={0}", k.Id, k.customer.Id, k.car.Id, k.days);
 
             //Open connection
             if (dbConnect.OpenConnection() == true)
@@ -66,8 +74,8 @@ namespace CarRent.CustomerManagement.Database
         //Delete statement
         public void Delete(Object o)
         {
-            Domain.Car k = (Domain.Car)o;
-            string query = "DELETE FROM car WHERE id=" + k.Id;
+            Domain.Reservation k = (Domain.Reservation)o;
+            string query = "DELETE FROM reservation WHERE id=" + k.Id;
 
             if (dbConnect.OpenConnection() == true)
             {
@@ -80,19 +88,15 @@ namespace CarRent.CustomerManagement.Database
         //Select statement
         public List<string>[] Select(Object o)
         {
-            Domain.Car k = (Domain.Car)o;
+            Domain.Reservation k = (Domain.Reservation)o;
             string query;
-            if (k.Id == 0 && !k.Marke.Equals(""))
+            if (k.Id == 0)
             {
-                query = "SELECT * FROM car WHERE marke=" + k.Marke;
-            }
-            else if (k.Id != 0)
-            {
-                query = "SELECT * FROM car WHERE id=" + k.Id;
+                query = "SELECT * FROM reservation";
             }
             else
             {
-                query = "SELECT * FROM car";
+                query = "SELECT * FROM reservation WHERE id=" + k.Id;
             }
 
             //Create a list to store the result
@@ -114,9 +118,9 @@ namespace CarRent.CustomerManagement.Database
                 while (dataReader.Read())
                 {
                     list[0].Add(dataReader["id"] + "");
-                    list[1].Add(dataReader["marke"] + "");
-                    list[2].Add(dataReader["typ"] + "");
-                    list[3].Add(dataReader["klassenid"] + "");
+                    list[1].Add(dataReader["kundenid"] + "");
+                    list[2].Add(dataReader["autoid"] + "");
+                    list[3].Add(dataReader["tage"] + "");
                 }
 
                 //close Data Reader
@@ -135,3 +139,4 @@ namespace CarRent.CustomerManagement.Database
         }
     }
 }
+

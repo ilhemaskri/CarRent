@@ -6,24 +6,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
-using CarRent.CustomerManagement.Domain;
+using DataBaseLibrary.Domain;
 
-namespace CarRent.CustomerManagement.Database
+namespace DataBaseLibrary.Database
 {
-    public class Address : IDBTables
+    public class Klasse : IDBTables
     {
         private DBConnect dbConnect;
         private MySqlConnection connection;
 
-        public Address(DBConnect dbConnect)
-        {
+        public Klasse(DBConnect dbConnect) {
             this.dbConnect = dbConnect;
             connection = dbConnect.Initialize();
         }
         public void Insert(Object o)
         {
-            Domain.Address k = (Domain.Address)o;
-            var query = String.Format("INSERT INTO address (id, strasse, hausnummer, plz, ort, land) VALUES({0}, '{1}', '{2}', '{3}', '{4}', '{5}')", k.Id, k.Strasse, k.Hausnummer, k.Plz, k.Ort, k.Land);
+            Domain.Klasse k = (Domain.Klasse)o;
+            var query = String.Format("INSERT INTO klasse (ID, Klasse, Tagesgebühr) VALUES({0}, '{1}', {2})", k.Id, k.Bezeichnung, k.Tagesgebuhr);
 
             //open connection
             if (dbConnect.OpenConnection() == true)
@@ -42,8 +41,8 @@ namespace CarRent.CustomerManagement.Database
         //Update statement
         public void Update(Object o)
         {
-            Domain.Address k = (Domain.Address)o;
-            var query = String.Format("UPDATE address SET id={0}, strasse='{1}', hausnummer='{2}', plz='{3}', ort='{4}', land='{5}' WHERE id={0}", k.Id, k.Strasse, k.Hausnummer, k.Plz, k.Ort, k.Land);
+            Domain.Klasse k = (Domain.Klasse)o;
+            var query = String.Format("UPDATE Klasse SET id={0}, klasse='{1}', tagesgebühr={2} WHERE id={0}", k.Id, k.Bezeichnung, k.Tagesgebuhr);
 
             //Open connection
             if (dbConnect.OpenConnection() == true)
@@ -66,8 +65,8 @@ namespace CarRent.CustomerManagement.Database
         //Delete statement
         public void Delete(Object o)
         {
-            Domain.Address k = (Domain.Address)o;
-            string query = "DELETE FROM address WHERE id=" + k.Id;
+            Domain.Klasse k = (Domain.Klasse)o;
+            string query = "DELETE FROM Klasse WHERE id=" + k.Id ;
 
             if (dbConnect.OpenConnection() == true)
             {
@@ -80,17 +79,14 @@ namespace CarRent.CustomerManagement.Database
         //Select statement
         public List<string>[] Select(Object o)
         {
-            Domain.Address k = (Domain.Address)o;
-            string query = "SELECT * FROM address WHERE id=" + k.Id;
+            Domain.Klasse k = (Domain.Klasse)o;
+            string query = "SELECT * FROM Klasse WHERE id=" + k.Id;
 
             //Create a list to store the result
-            List<string>[] list = new List<string>[6];
+            List<string>[] list = new List<string>[3];
             list[0] = new List<string>();
             list[1] = new List<string>();
             list[2] = new List<string>();
-            list[3] = new List<string>();
-            list[4] = new List<string>();
-            list[5] = new List<string>();
 
             //Open connection
             if (dbConnect.OpenConnection() == true)
@@ -104,11 +100,8 @@ namespace CarRent.CustomerManagement.Database
                 while (dataReader.Read())
                 {
                     list[0].Add(dataReader["id"] + "");
-                    list[1].Add(dataReader["strasse"] + "");
-                    list[2].Add(dataReader["hausnummer"] + "");
-                    list[3].Add(dataReader["plz"] + "");
-                    list[4].Add(dataReader["ort"] + "");
-                    list[5].Add(dataReader["land"] + "");
+                    list[1].Add(dataReader["klasse"] + "");
+                    list[2].Add(dataReader["tagesgebühr"] + "");
                 }
 
                 //close Data Reader

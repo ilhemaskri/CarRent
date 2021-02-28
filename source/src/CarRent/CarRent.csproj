@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="CustomerManagement\Login\" />
+    <ProjectReference Include="..\..\DataBaseLibrary\DataBaseLibrary.csproj" />
   </ItemGroup>
 
 </Project>
