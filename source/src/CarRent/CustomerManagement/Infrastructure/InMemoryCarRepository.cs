@@ -1,6 +1,6 @@
 ﻿namespace CarRent.CustomerManagement.Infrastructure
 {
-    using CarRent.CustomerManagement.Domain;
+    using DataBaseLibrary.Domain;
     using System;
     using System.Collections.Generic;
     using System.Linq;

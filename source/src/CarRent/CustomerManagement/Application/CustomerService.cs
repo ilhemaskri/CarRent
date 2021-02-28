@@ -1,4 +1,4 @@
-﻿using CarRent.CustomerManagement.Domain;
+﻿using DataBaseLibrary.Domain;
 using CarRent.CustomerManagement.Infrastructure;
 
 namespace CarRent.CustomerManagement.Application

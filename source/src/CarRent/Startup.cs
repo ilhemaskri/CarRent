@@ -4,7 +4,7 @@
 namespace CarRent
 {
     using CarRent.CustomerManagement.Application;
-    using CarRent.CustomerManagement.Domain;
+    using DataBaseLibrary.Domain;
     using CarRent.CustomerManagement.Infrastructure;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
