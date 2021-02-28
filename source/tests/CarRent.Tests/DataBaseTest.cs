@@ -1,5 +1,5 @@
-using CarRent.CustomerManagement.Database;
-using CarRent.CustomerManagement.Domain;
+using DataBaseLibrary.Database;
+using DataBaseLibrary.Domain;
 using System.Collections.Generic;
 
 namespace CarRent.Tests
@@ -30,8 +30,8 @@ namespace CarRent.Tests
         public void TestISDBConnectionKlasse()
         {
             var connect = new DBConnect();
-            var klasse = new CustomerManagement.Database.Klasse(connect);
-            var data = new CustomerManagement.Domain.Klasse();
+            var klasse = new DataBaseLibrary.Database.Klasse(connect);
+            var data = new DataBaseLibrary.Domain.Klasse();
             data.Bezeichnung="Mittelklasse";
             data.Id = 1;
             data.Tagesgebuhr = 250;
@@ -43,8 +43,8 @@ namespace CarRent.Tests
         public void TestDBContainsKlasse()
         {
             var connect = new DBConnect();
-            var klasse = new CustomerManagement.Database.Klasse(connect);
-            var data = new CustomerManagement.Domain.Klasse();
+            var klasse = new DataBaseLibrary.Database.Klasse(connect);
+            var data = new DataBaseLibrary.Domain.Klasse();
             data.Bezeichnung = "Mittelklasse";
             data.Id = 1;
             data.Tagesgebuhr = 250;
@@ -56,8 +56,8 @@ namespace CarRent.Tests
         public void TestDBInsertKlasse()
         {
             var connect = new DBConnect();
-            var klasse = new CustomerManagement.Database.Klasse(connect);
-            var data = new CustomerManagement.Domain.Klasse();
+            var klasse = new DataBaseLibrary.Database.Klasse(connect);
+            var data = new DataBaseLibrary.Domain.Klasse();
             data.Bezeichnung = "Testklasse";
             data.Id = 4;
             data.Tagesgebuhr = 400;
@@ -70,8 +70,8 @@ namespace CarRent.Tests
         public void TestDBDeleteKlasse()
         {
             var connect = new DBConnect();
-            var klasse = new CustomerManagement.Database.Klasse(connect);
-            var data = new CustomerManagement.Domain.Klasse();
+            var klasse = new DataBaseLibrary.Database.Klasse(connect);
+            var data = new DataBaseLibrary.Domain.Klasse();
             data.Bezeichnung = "Testklasse";
             data.Id = 4;
             data.Tagesgebuhr = 400;
@@ -87,8 +87,8 @@ namespace CarRent.Tests
         public void TestDBUpdateKlasse()
         {
             var connect = new DBConnect();
-            var klasse = new CustomerManagement.Database.Klasse(connect);
-            var data = new CustomerManagement.Domain.Klasse();
+            var klasse = new DataBaseLibrary.Database.Klasse(connect);
+            var data = new DataBaseLibrary.Domain.Klasse();
             data.Bezeichnung = "Mittelklasse";
             data.Id = 1;
             data.Tagesgebuhr = 270;
@@ -102,9 +102,9 @@ namespace CarRent.Tests
         public void TestISDBConnectionCar()
         {
             var connect = new DBConnect();
-            var car = new CustomerManagement.Database.Car(connect);
-            var data = new CustomerManagement.Domain.Car();
-            var klasse = new CustomerManagement.Domain.Klasse();
+            var car = new DataBaseLibrary.Database.Car(connect);
+            var data = new DataBaseLibrary.Domain.Car();
+            var klasse = new DataBaseLibrary.Domain.Klasse();
             klasse.Id = 1;
             data.Marke = "BMW";
             data.Id = 1;
@@ -128,9 +128,9 @@ namespace CarRent.Tests
         public void TestDBContainsCar()
         {
             var connect = new DBConnect();
-            var car = new CustomerManagement.Database.Car(connect);
-            var data = new CustomerManagement.Domain.Car();
-            var klasse = new CustomerManagement.Domain.Klasse();
+            var car = new DataBaseLibrary.Database.Car(connect);
+            var data = new DataBaseLibrary.Domain.Car();
+            var klasse = new DataBaseLibrary.Domain.Klasse();
             klasse.Id = 1;
             data.Marke = "BMW";
             data.Id = 1;
@@ -144,9 +144,9 @@ namespace CarRent.Tests
         public void TestDBInsertCar()
         {
             var connect = new DBConnect();
-            var car = new CustomerManagement.Database.Car(connect);
-            var data = new CustomerManagement.Domain.Car();
-            var klasse = new CustomerManagement.Domain.Klasse();
+            var car = new DataBaseLibrary.Database.Car(connect);
+            var data = new DataBaseLibrary.Domain.Car();
+            var klasse = new DataBaseLibrary.Domain.Klasse();
             klasse.Id = 1;
             data.Marke = "Audi";
             data.Id = 2;
@@ -161,9 +161,9 @@ namespace CarRent.Tests
         public void TestDBDeleteCar()
         {
             var connect = new DBConnect();
-            var car = new CustomerManagement.Database.Car(connect);
-            var data = new CustomerManagement.Domain.Car();
-            var klasse = new CustomerManagement.Domain.Klasse();
+            var car = new DataBaseLibrary.Database.Car(connect);
+            var data = new DataBaseLibrary.Domain.Car();
+            var klasse = new DataBaseLibrary.Domain.Klasse();
             klasse.Id = 1;
             data.Marke = "Audi";
             data.Id = 2;
@@ -182,9 +182,9 @@ namespace CarRent.Tests
         public void TestDBUpdateCar()
         {
             var connect = new DBConnect();
-            var car = new CustomerManagement.Database.Car(connect);
-            var data = new CustomerManagement.Domain.Car();
-            var klasse = new CustomerManagement.Domain.Klasse();
+            var car = new DataBaseLibrary.Database.Car(connect);
+            var data = new DataBaseLibrary.Domain.Car();
+            var klasse = new DataBaseLibrary.Domain.Klasse();
             klasse.Id = 1;
             data.Marke = "BMW";
             data.Id = 1;
@@ -200,64 +200,60 @@ namespace CarRent.Tests
         [Fact]
         public void TestGetDBTableCar()
         {
-            var connect = new DBConnect();
-            var data = new CustomerManagement.Domain.Car();
-            var klasse = new CustomerManagement.Domain.Klasse();
+            var data = new DataBaseLibrary.Domain.Car();
+            var klasse = new DataBaseLibrary.Domain.Klasse();
             klasse.Id = 1;
             data.Marke = "BMW";
             data.Id = 1;
             data.Typ = "328i";
             data.Klasse = klasse;
-            TableFactory.getTable(data, connect);
-            Assert.Equal("Car",TableFactory.getTable(data, connect).GetType().Name);
+            TableFactory.getTable(data);
+            Assert.Equal("Car",TableFactory.getTable(data).GetType().Name);
         }
 
         [Fact]
         public void TestGetDBTableKlasse()
         {
             var connect = new DBConnect();
-            var klasse = new CustomerManagement.Domain.Klasse();
+            var klasse = new DataBaseLibrary.Domain.Klasse();
             klasse.Id = 1;
-            TableFactory.getTable(klasse, connect);
-            Assert.Equal("Klasse", TableFactory.getTable(klasse, connect).GetType().Name);
+            TableFactory.getTable(klasse);
+            Assert.Equal("Klasse", TableFactory.getTable(klasse).GetType().Name);
         }
 
         [Fact]
         public void TestGetDBTableCustomer()
         {
             var connect = new DBConnect();
-            var data = new CustomerManagement.Domain.Customer();
+            var data = new DataBaseLibrary.Domain.Customer();
             data.Id = 1;
-            TableFactory.getTable(data, connect);
-            Assert.Equal("Customer", TableFactory.getTable(data, connect).GetType().Name);
+            Assert.Equal("Customer", TableFactory.getTable(data).GetType().Name);
         }
 
         [Fact]
         public void TestGetDBTableReservation()
         {
             var connect = new DBConnect();
-            var data = new CustomerManagement.Domain.Reservation();
+            var data = new DataBaseLibrary.Domain.Reservation();
             data.Id = 1;
-            TableFactory.getTable(data, connect);
-            Assert.Equal("Reservation", TableFactory.getTable(data, connect).GetType().Name);
+            Assert.Equal("Reservation", TableFactory.getTable(data).GetType().Name);
         }
 
         [Fact]
         public void TestGetDBTableAdresse()
         {
             var connect = new DBConnect();
-            var data = new CustomerManagement.Domain.Address();
+            var data = new DataBaseLibrary.Domain.Address();
             data.Id = 1;
-            TableFactory.getTable(data, connect);
-            Assert.Equal("Address", TableFactory.getTable(data, connect).GetType().Name);
+            Assert.Equal("Address", TableFactory.getTable(data).GetType().Name);
         }
 
         [Fact]
         public void TestDBContainsAdresse()
         {
             var connect = new DBConnect();
-            var data = new CustomerManagement.Domain.Address();
-            var klasse = new CustomerManagement.Database.Address(connect);
+            var data = new DataBaseLibrary.Domain.Address();
+            var klasse = new DataBaseLibrary.Database.Address(connect);
             data.Strasse = "Palmenstrasse";
             data.Hausnummer = "3";
             data.Plz = "5000";
@@ -272,8 +268,8 @@ namespace CarRent.Tests
         public void TestDBInsertAdresse()
         {
             var connect = new DBConnect();
-            var data = new CustomerManagement.Domain.Address();
-            var klasse = new CustomerManagement.Database.Address(connect);
+            var data = new DataBaseLibrary.Domain.Address();
+            var klasse = new DataBaseLibrary.Database.Address(connect);
             data.Strasse = "Schickstrasse";
             data.Hausnummer = "3";
             data.Plz = "6000";
@@ -289,8 +285,8 @@ namespace CarRent.Tests
         public void TestDBDeleteAdresse()
         {
             var connect = new DBConnect();
-            var data = new CustomerManagement.Domain.Address();
-            var klasse = new CustomerManagement.Database.Address(connect);
+            var data = new DataBaseLibrary.Domain.Address();
+            var klasse = new DataBaseLibrary.Database.Address(connect);
             data.Strasse = "Schickstrasse";
             data.Hausnummer = "3";
             data.Plz = "6000";
@@ -310,8 +306,8 @@ namespace CarRent.Tests
         public void TestDBUpdateAdresse()
         {
             var connect = new DBConnect();
-            var data = new CustomerManagement.Domain.Address();
-            var klasse = new CustomerManagement.Database.Address(connect);
+            var data = new DataBaseLibrary.Domain.Address();
+            var klasse = new DataBaseLibrary.Database.Address(connect);
             data.Strasse = "Palmenstrasse";
             data.Hausnummer = "3";
             data.Plz = "6000";
@@ -328,8 +324,8 @@ namespace CarRent.Tests
         public void TestISDBConnectionCustomer()
         {
             var connect = new DBConnect();
-            var customer = new CustomerManagement.Database.Customer(connect);
-            var data = new CustomerManagement.Domain.Customer();
+            var customer = new DataBaseLibrary.Database.Customer(connect);
+            var data = new DataBaseLibrary.Domain.Customer();
             data.Id = 1;
             Assert.Single(customer.Select(data)[1]);
         }
@@ -338,8 +334,8 @@ namespace CarRent.Tests
         public void TestDBContainsCustomer()
         {
             var connect = new DBConnect();
-            var customer = new CustomerManagement.Database.Customer(connect);
-            var data = new CustomerManagement.Domain.Customer();
+            var customer = new DataBaseLibrary.Database.Customer(connect);
+            var data = new DataBaseLibrary.Domain.Customer();
             data.Id = 1;
             customer.Select(data);
             Assert.Contains("Max", customer.Select(data)[1]);
@@ -349,9 +345,9 @@ namespace CarRent.Tests
         public void TestDBInsertCustomer()
         {
             var connect = new DBConnect();
-            var customer = new CustomerManagement.Database.Customer(connect);
-            var data = new CustomerManagement.Domain.Customer();
-            var address = new CustomerManagement.Domain.Address();
+            var customer = new DataBaseLibrary.Database.Customer(connect);
+            var data = new DataBaseLibrary.Domain.Customer();
+            var address = new DataBaseLibrary.Domain.Address();
             address.Id = 1;
             data.Id = 2;
             data.Vorname = "Jack";
@@ -366,9 +362,9 @@ namespace CarRent.Tests
         public void TestDBDeleteCustomer()
         {
             var connect = new DBConnect();
-            var customer = new CustomerManagement.Database.Customer(connect);
-            var data = new CustomerManagement.Domain.Customer();
-            var address = new CustomerManagement.Domain.Address();
+            var customer = new DataBaseLibrary.Database.Customer(connect);
+            var data = new DataBaseLibrary.Domain.Customer();
+            var address = new DataBaseLibrary.Domain.Address();
             address.Id = 1;
             data.Id = 2;
             data.Vorname = "Jack";
@@ -387,9 +383,9 @@ namespace CarRent.Tests
         public void TestDBUpdateCustomer()
         {
             var connect = new DBConnect();
-            var customer = new CustomerManagement.Database.Customer(connect);
-            var data = new CustomerManagement.Domain.Customer();
-            var address = new CustomerManagement.Domain.Address();
+            var customer = new DataBaseLibrary.Database.Customer(connect);
+            var data = new DataBaseLibrary.Domain.Customer();
+            var address = new DataBaseLibrary.Domain.Address();
             address.Id = 1;
             data.Id = 1;
             data.Vorname = "Max";
@@ -405,8 +401,8 @@ namespace CarRent.Tests
         public void TestISDBConnectionReservation()
         {
             var connect = new DBConnect();
-            var reservation = new CustomerManagement.Database.Reservation(connect);
-            var data = new CustomerManagement.Domain.Reservation();
+            var reservation = new DataBaseLibrary.Database.Reservation(connect);
+            var data = new DataBaseLibrary.Domain.Reservation();
             data.Id = 1;
             Assert.Single(reservation.Select(data)[1]);
         }
@@ -415,10 +411,10 @@ namespace CarRent.Tests
         public void TestDBContainsReservation()
         {
             var connect = new DBConnect();
-            var reservation = new CustomerManagement.Database.Reservation(connect);
-            var data = new CustomerManagement.Domain.Reservation();
-            var customer = new CustomerManagement.Domain.Customer();
-            var car = new CustomerManagement.Domain.Car();
+            var reservation = new DataBaseLibrary.Database.Reservation(connect);
+            var data = new DataBaseLibrary.Domain.Reservation();
+            var customer = new DataBaseLibrary.Domain.Customer();
+            var car = new DataBaseLibrary.Domain.Car();
             customer.Id = 1;
             car.Id = 1;
             data.Id = 1;
@@ -433,10 +429,10 @@ namespace CarRent.Tests
         public void TestDBInsertReservation()
         {
             var connect = new DBConnect();
-            var reservation = new CustomerManagement.Database.Reservation(connect);
-            var data = new CustomerManagement.Domain.Reservation();
-            var customer = new CustomerManagement.Domain.Customer();
-            var car = new CustomerManagement.Domain.Car();
+            var reservation = new DataBaseLibrary.Database.Reservation(connect);
+            var data = new DataBaseLibrary.Domain.Reservation();
+            var customer = new DataBaseLibrary.Domain.Customer();
+            var car = new DataBaseLibrary.Domain.Car();
             customer.Id = 1;
             car.Id = 1;
             data.Id = 2;
@@ -452,10 +448,10 @@ namespace CarRent.Tests
         public void TestDBDeleteReservation()
         {
             var connect = new DBConnect();
-            var reservation = new CustomerManagement.Database.Reservation(connect);
-            var data = new CustomerManagement.Domain.Reservation();
-            var customer = new CustomerManagement.Domain.Customer();
-            var car = new CustomerManagement.Domain.Car();
+            var reservation = new DataBaseLibrary.Database.Reservation(connect);
+            var data = new DataBaseLibrary.Domain.Reservation();
+            var customer = new DataBaseLibrary.Domain.Customer();
+            var car = new DataBaseLibrary.Domain.Car();
             customer.Id = 1;
             car.Id = 1;
             data.Id = 2;
@@ -475,10 +471,10 @@ namespace CarRent.Tests
         public void TestDBUpdateReservation()
         {
             var connect = new DBConnect();
-            var reservation = new CustomerManagement.Database.Reservation(connect);
-            var data = new CustomerManagement.Domain.Reservation();
-            var customer = new CustomerManagement.Domain.Customer();
-            var car = new CustomerManagement.Domain.Car();
+            var reservation = new DataBaseLibrary.Database.Reservation(connect);
+            var data = new DataBaseLibrary.Domain.Reservation();
+            var customer = new DataBaseLibrary.Domain.Customer();
+            var car = new DataBaseLibrary.Domain.Car();
             customer.Id = 1;
             car.Id = 1;
             data.Id = 1;
